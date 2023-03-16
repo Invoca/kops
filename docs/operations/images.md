@@ -43,6 +43,7 @@ The following table provides the support status for various distros with regards
 | [Debian 9](#debian-9-stretch)       |          1.8 |   1.10 |       1.21 |       - |
 | [Debian 10](#debian-10-buster)      |         1.13 |   1.17 |          - |       - |
 | [Debian 11](#debian-11-bullseye)    |       1.21.1 |      - |          - |       - |
+| [Debian 12](#debian-12-bookworm)    |       1.26.3 |      - |          - |       - |
 | [Flatcar](#flatcar)                 |       1.15.1 |   1.17 |          - |       - |
 | [Kope.io](#kopeio)                  |            - |      - |       1.18 |       - |
 | [RHEL 7](#rhel-7)                   |            - |    1.5 |       1.21 |       - |
@@ -109,6 +110,12 @@ aws ec2 describe-images --region us-east-1 --output table \
   --query "sort_by(Images, &CreationDate)[*].[CreationDate,Name,ImageId]" \
   --filters "Name=name,Values=debian-11-amd64-*"
 ```
+
+### Debian 12 (Bookworm)
+
+Debian 12 is based on Kernel version **6.1** which has no known major Kernel bugs and fully supports all Cilium features.
+
+At the moment there is no official image published.
 
 ### Flatcar
 
