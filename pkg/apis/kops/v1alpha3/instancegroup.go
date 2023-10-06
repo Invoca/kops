@@ -162,8 +162,11 @@ type InstanceGroupSpec struct {
 	// MaxInstanceLifetime to the maximum amount of time, in seconds, that an instance can be in service.
 	// Value expected must be in form of duration ("ms", "s", "m", "h")
 	MaxInstanceLifetime *metav1.Duration `json:"maxInstanceLifetime,omitempty"`
-	// GCPAliasRange: Alias range from the pod CIDRs to assign instances in the instanceGroup
-	GCPAliasRange *string `json:"gcpAliasRange,omitempty"`
+	// +kubebuilder:default=24
+	// +kubebuilder:validation:Minimum=24
+	// +kubebuilder:validation:Maximum=28
+	// GCPAliasRange Alias range from the pod CIDRs to assign instances in the instanceGroup
+	GCPAliasRange *uint8 `json:"gcpAliasRange,omitempty"`
 	// GCPProvisioningModel: Specifies the provisioning model of the GCP instance.
 	// Valid values:
 	//   'STANDARD': (default) standard provisioning with user controlled run time, no discounts

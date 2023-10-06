@@ -903,8 +903,11 @@ type CloudConfiguration struct {
 	AWSEBSCSIDriver *AWSEBSCSIDriver `json:"awsEBSCSIDriver,omitempty"`
 	// GCPPDCSIDriver is the config for the GCP PD CSI driver
 	GCPPDCSIDriver *GCPPDCSIDriver `json:"gcpPDCSIDriver,omitempty"`
-	// GCPAliasRange specifies the alias range from the pods CIDR to assign instances
-	GCPAliasRange *string `json:"gcpAliasRange,omitempty"`
+	// +kubebuilder:default=24
+	// +kubebuilder:validation:Minimum=24
+	// +kubebuilder:validation:Maximum=28
+	// GCPAliasRange Alias range from the pod CIDRs to assign instances in the instanceGroup
+	GCPAliasRange *uint8 `json:"gcpAliasRange,omitempty"`
 }
 
 // AWSEBSCSIDriver is the config for the AWS EBS CSI driver
