@@ -118,6 +118,7 @@ const (
 	WellKnownAccountKopeio       = "383156758163"
 	WellKnownAccountRedhat       = "309956199498"
 	WellKnownAccountUbuntu       = "099720109477"
+	WellKnownAccountRockyLinux   = "792107900819"
 )
 
 const instanceInServiceState = "InService"
@@ -2061,6 +2062,8 @@ func resolveImage(ssmClient ssmiface.SSMAPI, ec2Client ec2iface.EC2API, name str
 				owner = WellKnownAccountDebian
 			case "debian11":
 				owner = WellKnownAccountDebian
+			case "debian":
+				owner = WellKnownAccountDebian
 			case "flatcar":
 				owner = WellKnownAccountFlatcar
 			case "kopeio", "kope.io":
@@ -2069,6 +2072,8 @@ func resolveImage(ssmClient ssmiface.SSMAPI, ec2Client ec2iface.EC2API, name str
 				owner = WellKnownAccountRedhat
 			case "ubuntu":
 				owner = WellKnownAccountUbuntu
+			case "rocky", "rockylinux":
+				owner = WellKnownAccountRockyLinux
 			}
 
 			request.Owners = []*string{&owner}
