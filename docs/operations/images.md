@@ -115,7 +115,16 @@ aws ec2 describe-images --region us-east-1 --output table \
 
 Debian 12 is based on Kernel version **6.1** which has no known major Kernel bugs and fully supports all Cilium features.
 
-At the moment there is no official image published.
+Official Debian 12 AMIs are published by owner `136693071363` with names matching `debian-12-*`. This fork has no `debian12` owner alias, so use that numeric owner or an AMI ID.
+
+Available images can be listed using:
+
+```bash
+aws ec2 describe-images --region us-east-1 --output table \
+  --owners 136693071363 \
+  --query "sort_by(Images, &CreationDate)[*].[CreationDate,Name,ImageId]" \
+  --filters "Name=name,Values=debian-12-amd64-*"
+```
 
 ### Flatcar
 
