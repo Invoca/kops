@@ -39,6 +39,7 @@ type Distribution struct {
 var (
 	DistributionDebian10     = Distribution{packageFormat: "deb", project: "debian", id: "buster", version: 10}
 	DistributionDebian11     = Distribution{packageFormat: "deb", project: "debian", id: "bullseye", version: 11}
+	DistributionDebian12     = Distribution{packageFormat: "deb", project: "debian", id: "bookworm", version: 12}
 	DistributionUbuntu1804   = Distribution{packageFormat: "deb", project: "ubuntu", id: "bionic", version: 18.04}
 	DistributionUbuntu2004   = Distribution{packageFormat: "deb", project: "ubuntu", id: "focal", version: 20.04}
 	DistributionUbuntu2010   = Distribution{packageFormat: "deb", project: "ubuntu", id: "groovy", version: 20.10}
@@ -95,14 +96,16 @@ func (d *Distribution) DefaultUsers() ([]string, error) {
 // HasLoopbackEtcResolvConf is true if systemd-resolved has put the loopback address 127.0.0.53 as a nameserver in /etc/resolv.conf
 // See https://github.com/coredns/coredns/blob/master/plugin/loop/README.md#troubleshooting-loops-in-kubernetes-clusters
 func (d *Distribution) HasLoopbackEtcResolvConf() bool {
-	if d.IsUbuntu() {
-		// Ubuntu > 16.04 has it
-		return d.version > 16.04
-	}
-	if d.project == "flatcar" {
+	switch d.project {
+	case "debian":
+		return d.version >= 12
+	case "ubuntu":
+		return d.version >= 18.04
+	case "flatcar":
 		return true
+	default:
+		return false
 	}
-	return false
 }
 
 // Version returns the (project scoped) numeric version
